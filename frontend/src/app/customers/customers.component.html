@@ -1,8 +1,11 @@
-<h2>Customers:</h2>
+<h2>Customers list:</h2>
 <div>
-  <ul>
-    <li *ngFor="let customer of customers">
+  <ul class="heroes">
+    <li *ngFor="let customer of customers" 
+      (click)="onSelect(customer)"
+      [class.selected]="customer === selectedCustomer">
       <span class="badge">{{customer.id}}</span> {{customer.name}}
     </li>
   </ul>
 </div>
+<app-customer-detail [customer]="selectedCustomer"></app-customer-detail>
