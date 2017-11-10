@@ -65,4 +65,12 @@ export class CustomerService {
     );
   } 
 
+  deleteCustomer(customer: Customer): Observable<any> {
+    const url = `${this.customersUrl}/${customer.id}`;
+    return this.http.delete(url, httpOptions).pipe(
+      tap(() => this.log(`deleted customer id=${customer.id}`)),
+      catchError(this.handleError<Customer>('deleteCustomer'))
+    );
+  }
+
 }

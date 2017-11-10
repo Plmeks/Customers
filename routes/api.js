@@ -29,6 +29,11 @@ router.put('/customers', function(req, res, next) {
   res.json({ message: 'Customer updated!' });
 });
 
+router.delete('/customers/:id', function(req, res, next) {
+  customers = customers.filter(customer => parseInt(req.params.id) != customer.id);
+  res.json({message: "deleted"});
+});
+
 
 
 module.exports = router;
