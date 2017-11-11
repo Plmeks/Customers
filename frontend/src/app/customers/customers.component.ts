@@ -5,7 +5,7 @@ import { CustomerService } from '../customer.service';
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
+  styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
   customers: Customer[];
@@ -18,5 +18,13 @@ export class CustomersComponent implements OnInit {
 
   getCustomers(): void {
     this.customerService.getCustomers().subscribe(customers => this.customers = customers);
+  }
+
+  add(name: string):void {
+    name = name.trim();
+    if(!name) return;
+
+    this.customerService.addCustomer({ name } as Customer)
+      .subscribe(() => this.getCustomers());
   }
 }

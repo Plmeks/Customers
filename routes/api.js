@@ -29,6 +29,19 @@ router.put('/customers', function(req, res, next) {
   res.json({ message: 'Customer updated!' });
 });
 
+router.post('/customers', function(req, res, next) {
+  var id = parseInt(customers[customers.length - 1].id) + 1;
+  var customer = {
+    id: id,
+    name: req.body.name
+  };
+  customers.push(customer);
+  res.json({
+    id: 0,
+    name: 'wow'
+  });
+});
+
 router.delete('/customers/:id', function(req, res, next) {
   customers = customers.filter(customer => parseInt(req.params.id) != customer.id);
   res.json({message: "deleted"});

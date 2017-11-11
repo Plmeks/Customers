@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { of } from 'rxjs/observable/of';
 import { Customer } from './customer';
-import { CUSTOMERS } from './mock-customers';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -14,8 +13,6 @@ const httpOptions = {
 @Injectable()
 export class CustomerService {
   private customersUrl = 'http://localhost:3000/api/customers';  
-  
-  
 
   constructor(
     private http: HttpClient,
@@ -70,6 +67,13 @@ export class CustomerService {
     return this.http.delete(url, httpOptions).pipe(
       tap(() => this.log(`deleted customer id=${customer.id}`)),
       catchError(this.handleError<Customer>('deleteCustomer'))
+    );
+  }
+
+  addCustomer(customer: Customer):Observable<Customer> {
+    return this.http.post<Customer>(this.customersUrl, customer, httpOptions).pipe(
+      tap((customer: Customer) => this.log(`added customer with id=${customer.name}`)),
+      catchError(this.handleError<Customer>('addCustomer'))
     );
   }
 
