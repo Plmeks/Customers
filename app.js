@@ -27,7 +27,8 @@ app.use(express.static(path.join(__dirname, 'frontend/dist')));
 app.use(function (req, res, next) {
       var allowedOrigins = [
         'http://localhost:4200',
-        'http://customers.loc'
+        'http://customers.loc',
+        'http://customers.eu-4.evennode.com'
       ];
       var origin = req.headers.origin;
       if(allowedOrigins.indexOf(origin) > -1){
