@@ -12,7 +12,7 @@ const httpOptions = {
 
 @Injectable()
 export class CustomerService {
-  private customersUrl = 'http://localhost:3000/api/customers';  
+  private customersUrl = 'http://customers.eu-4.evennode.com/api/customers';  
 
   constructor(
     private http: HttpClient,
