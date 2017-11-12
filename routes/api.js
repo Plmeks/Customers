@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var customersController = require('../middleware/controllers/customers');
+
 
 var customers = [{
   id: 1,
@@ -17,34 +19,23 @@ var customers = [{
 
 /* GET users listing. */
 router.get('/customers', function(req, res, next) {
-  res.json(customers);
+  customersController.getCustomers(customers => res.json(customers));
 });
 
 router.get('/customers/:id', function(req, res, next) {
-  res.json(customers.find(customer => parseInt(req.params.id) === customer.id));
+  customersController.getCustomer(req.params.id, customer => res.json(customer));
 });
 
 router.put('/customers', function(req, res, next) {
-  customers.find(customer => customer.id === req.body.id).name = req.body.name;
-  res.json({ message: 'Customer updated!' });
+  customersController.updateCustomer(req.body, updatedCustomer => res.json(updatedCustomer));
 });
 
 router.post('/customers', function(req, res, next) {
-  var id = parseInt(customers[customers.length - 1].id) + 1;
-  var customer = {
-    id: id,
-    name: req.body.name
-  };
-  customers.push(customer);
-  res.json({
-    id: 0,
-    name: 'wow'
-  });
+  customersController.addCustomer(req.body, addedCustomer => res.json(addedCustomer));
 });
 
 router.delete('/customers/:id', function(req, res, next) {
-  customers = customers.filter(customer => parseInt(req.params.id) != customer.id);
-  res.json({message: "deleted"});
+  customersController.deleteCustomer(req.params.id, result => res.json(result));
 });
 
 

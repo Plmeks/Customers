@@ -6,10 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var api = require('./routes/api');
 
 var app = express();
+
+var db = require('./db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'frontend/dist'));
